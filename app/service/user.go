@@ -10,12 +10,12 @@ import (
 
 type userService struct{}
 
-func (this *userService) table() string {
+func (s *userService) table() string {
 	return tableName("user")
 }
 
 // GetUser 获取用户信息
-func (this *userService) GetUser(userId int64, getRoleInfo bool) (*entity.User, error) {
+func (s *userService) GetUser(userId int64) (*entity.User, error) {
 	user := &entity.User{}
 	user.Id = userId
 
@@ -24,7 +24,7 @@ func (this *userService) GetUser(userId int64, getRoleInfo bool) (*entity.User, 
 }
 
 // GetUserByName 根据名字查找用户
-func (this userService) GetUserByName(userName string) (*entity.User, error) {
+func (s *userService) GetUserByName(userName string) (*entity.User, error) {
 	user := &entity.User{}
 	user.UserName = userName
 
@@ -33,27 +33,27 @@ func (this userService) GetUserByName(userName string) (*entity.User, error) {
 }
 
 // GetTotal 获取用户总数
-func (this userService) GetTotal() (int64, error) {
-	return o.QueryTable(this.table()).Count()
+func (s *userService) GetTotal() (int64, error) {
+	return o.QueryTable(s.table()).Count()
 }
 
 // GetAllUser 获取所有用户
-func (this userService) GetAllUser(getRoleInfo bool) ([]entity.User, error) {
-	return this.GetUserList(1, -1, true)
+func (s *userService) GetAllUser(getRoleInfo bool) ([]entity.User, error) {
+	return s.GetUserList(1, -1, true)
 }
 
 // GetUserList 获取用户列表
-func (this userService) GetUserList(page, pageSize int, getRoleInfo bool) ([]entity.User, error) {
+func (s *userService) GetUserList(page, pageSize int, getRoleInfo bool) ([]entity.User, error) {
 	offset, limit := getPagination(page, pageSize)
 
 	var users []entity.User
-	_, err := o.QueryTable(this.table()).OrderBy("id").Limit(limit, offset).All(&users)
+	_, err := o.QueryTable(s.table()).OrderBy("id").Limit(limit, offset).All(&users)
 	return users, err
 }
 
 // AddUser 添加用户
-func (this userService) AddUser(userName, realName, email, mobile, password string, sex int) (*entity.User, error) {
-	if exists, _ := this.GetUserByName(userName); exists.Id > 0 {
+func (s *userService) AddUser(userName, realName, email, mobile, password string, sex int) (*entity.User, error) {
+	if exists, _ := s.GetUserByName(userName); exists.Id > 0 {
 		return nil, errors.New("用户名已存在")
 	}
 
@@ -72,7 +72,7 @@ func (this userService) AddUser(userName, realName, email, mobile, password stri
 }
 
 // UpdateUser 更新用户信息
-func (this userService) UpdateUser(user *entity.User, fields ...string) error {
+func (s *userService) UpdateUser(user *entity.User, fields ...string) error {
 	if len(fields) < 1 {
 		return errors.New("更新字段不能为空")
 	}
@@ -82,8 +82,8 @@ func (this userService) UpdateUser(user *entity.User, fields ...string) error {
 }
 
 // ModifyPassword 修改密码
-func (this userService) ModifyPassword(userId int64, password string) error {
-	user, err := this.GetUser(userId, false)
+func (s *userService) ModifyPassword(userId int64, password string) error {
+	user, err := s.GetUser(userId)
 	if err != nil {
 		return err
 	}
@@ -95,7 +95,7 @@ func (this userService) ModifyPassword(userId int64, password string) error {
 }
 
 // DeleteUser 删除用户
-func (this userService) DeleteUser(userId int64) error {
+func (s *userService) DeleteUser(userId int64) error {
 	if userId == 1 {
 		return errors.New("不允许删除管理员账户")
 	}
