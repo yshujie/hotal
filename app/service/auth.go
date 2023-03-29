@@ -29,8 +29,7 @@ func (s *AuthService) Init(token string) {
 		userId, _ := strconv.ParseInt(idStr, 10, 64)
 
 		if userId > 0 {
-			userService := userService{}
-			user, err := userService.GetUser(userId)
+			user, err := UserService.GetUser(userId)
 
 			if err == nil && password == libs.Md5([]byte(user.Password+user.Salt)) {
 				s.loginUser = user
@@ -79,8 +78,7 @@ func (s *AuthService) IsLogined() bool {
 
 // Login 用户登录
 func (s *AuthService) Login(userName, password string) (string, error) {
-	userService := userService{}
-	user, err := userService.GetUserByName(userName)
+	user, err := UserService.GetUserByName(userName)
 	if err != nil {
 		if err == orm.ErrNoRows {
 			return "", errors.New("账户或密码错误")
@@ -97,7 +95,7 @@ func (s *AuthService) Login(userName, password string) (string, error) {
 	}
 
 	user.LastLogin = time.Now()
-	userService.UpdateUser(user, "LastLogin")
+	UserService.UpdateUser(user, "LastLogin")
 	s.loginUser = user
 
 	token := fmt.Sprintf("%d|%s", user.Id, libs.Md5([]byte(user.Password+user.Salt)))
