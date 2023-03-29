@@ -11,3 +11,26 @@ var (
 func tableName(name string) string {
 	return name
 }
+
+// 获取分页参数
+func getPagination(page, pageSize int) (offset, limit int) {
+	if pageSize == -1 {
+		offset = 0
+		limit = 1000
+	} else {
+		offset = calcOffset(page, pageSize)
+		limit = pageSize
+	}
+
+	return offset, limit
+}
+
+func calcOffset(page, pageSize int) (offset int) {
+	if page <= 0 {
+		offset = 0
+	} else {
+		offset = (page - 1) * pageSize
+	}
+
+	return offset
+}
