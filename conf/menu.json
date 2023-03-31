@@ -1,0 +1,26 @@
+[
+  {
+    "name": "酒店管理",
+    "icon": "fa-cloud-upload",
+    "route": "#",
+    "submenu": [
+      {
+        "name": "酒店列表",
+        "route": "hotel.list",
+        "action": "HotelController.List"
+      }
+    ]
+  },
+  {
+    "name": "用户管理",
+    "icon": "fa-bars",
+    "route": "#",
+    "submenu": [
+      {
+        "name": "用户列表",
+        "route": "user.list",
+        "action": "UserController.List"
+      }
+    ]
+  }
+]
