@@ -1,4 +1,4 @@
-package controlers
+package controllers
 
 type Menu struct {
 	Name    string

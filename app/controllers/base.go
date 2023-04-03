@@ -1,4 +1,4 @@
-package controlers
+package controllers
 
 import (
 	"encoding/json"
