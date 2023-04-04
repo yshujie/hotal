@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 	"github.com/hotel/app/entity"
+	"github.com/hotel/app/libs"
 	"github.com/hotel/app/service"
 )
 
@@ -26,7 +27,7 @@ func (c *HotelController) List() {
 	count, _ := service.HotelService.GetTotal()
 	c.Data["count"] = count
 	c.Data["hotelList"] = hotelList
-	c.Data["pageBar"] = libs.NewPager()
+	c.Data["pageBar"] = libs.NewPager(page, int(count), c.pageSize, beego.URLFor("HotelController.List"), true).ToString()
 
 	c.display()
 }
