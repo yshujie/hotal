@@ -1,0 +1,60 @@
+
+		<div class="row">
+			<div class="col-xs-12">
+			<a href="{{urlfor "UserController.Add"}}" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加帐号</a>
+			</div>
+		</div>
+
+		<div class="space-4"></div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+					<tr>
+						<th width="50">ID</th>
+						<th width="120">用户名</th>
+						<th width="120">真实姓名</th>
+						<th width="120">性别</th>
+						<th width="200">Email</th>
+						<th width="200">手机号</th>
+						<th width="200">最后登录时间</th>
+						<th width="80">状态</th>
+						<th width="120">操作</th>
+					</tr>
+					</thead>
+					<tbody>
+					{{range $k, $v := .userList}}
+						<tr>
+							<td class="center">{{$v.Id}}</td>
+							<td>{{$v.UserName}}</td>
+							<td>{{$v.RealName}}</td>
+                            <td>
+							{{if eq $v.Sex 1}}
+                                男
+							{{end}}
+							{{if eq $v.Sex 2}}
+                                女
+							{{end}}
+                            </td>
+							<td>{{$v.Email}}</td>
+							<td>{{$v.Mobile}}</td>
+							<td>{{date $v.LastLogin "Y-m-d H:i:s"}}</td>
+							<td>
+							{{if eq $v.Status 0}}
+							<span class="green">正常</span>
+							{{end}}
+							{{if eq $v.Status -1}}
+							<span class="orange">禁用</span>
+							{{end}}
+							</td>
+							<td>
+							<a href="{{urlfor "UserController.Modify" "userid" $v.Id}}">修改</a>
+							<a href="{{urlfor "UserController.Del" "userid" $v.Id}}" class="delete_confirm collapse">删除</a>
+							</td>
+						</tr>
+					{{end}}
+					</tbody>
+				</table>
+			</div>
+		</div>
