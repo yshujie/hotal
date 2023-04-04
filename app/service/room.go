@@ -47,6 +47,19 @@ func (s *roomService) GetList(page, pageSize int) ([]entity.Room, error) {
 	return list, err
 }
 
+func (s *roomService) GetListOfHotel(hotel *entity.Hotel, page, pageSize int) ([]entity.Hotel, error) {
+	var list []entity.Hotel
+
+	offset, limit := getPagination(page, pageSize)
+
+	_, err := o.QueryTable(s.table()).Filter("hotelid", hotel.Id).Offset(offset).Limit(limit).All(&list)
+	for i, _ := range list {
+		o.LoadRelated(&list[i], "Hotel")
+	}
+
+	return list, err
+}
+
 // GetTotal 获取 room 总数
 func (s *roomService) GetTotal() (int64, error) {
 	return o.QueryTable(s.table()).Count()

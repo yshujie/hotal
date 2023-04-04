@@ -1,0 +1,64 @@
+
+<div class="row">
+    <div class="col-xs-12">
+        <a href="{{urlfor "RoomController.Add" "hotelid" .hotel.Id}}" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 添加房间</a>
+    </div>
+</div>
+
+<div class="space-4"></div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>酒店名称</th>
+                <th>房间名称</th>
+                <th>房号</th>
+                <th>价格</th>
+                <th>备注</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $k, $v := .roomList}}
+            <tr>
+                <td class="center">{{$v.Id}}</td>
+                <td>{{$v.Hotel.Name}}</td>
+                <td><span class="red">{{$v.Name}}</span></td>
+                <td>{{$v.No}}</td>
+                <td>{{$v.Price}}</td>
+                <td>{{$v.Remark}}</td>
+                <td class="clone_status" id="status-{{$v.Id}}" data-status="{{$v.Status}}" data-id="{{$v.Id}}">
+                {{if eq $v.Status 1}}
+                    <span class="text-success bigger-110 green">有效</span>
+                {{end}}
+                {{if eq $v.Status 0}}
+                    <span class="text-warning bigger-110 orange">无效</span>
+                {{end}}
+                </td>
+                <td>
+                    <a class="red collapse" href="{{urlfor "BookOrderController.Book" "roomid" $v.Id}}">预定</a>
+                    <a href="{{urlfor "RoomController.Modify" "roomid" $v.Id}}">编辑</a>
+                </td>
+            </tr>
+            {{end}}
+
+            {{if eq .count 0}}
+            <tr>
+                <td colspan="20">暂无记录...</td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">{{str2html .pageBar}}</div>
+</div>
+
+<script>
+</script>
