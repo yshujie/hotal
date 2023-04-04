@@ -5,7 +5,6 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/validation"
 	"github.com/hotel/app/service"
-	"os"
 	"regexp"
 	"runtime"
 	"strconv"
@@ -19,12 +18,12 @@ type MainController struct {
 // Index 首页
 func (c *MainController) Index() {
 	c.Data["pageTitle"] = "系统概况"
-	c.Data["hostname"], _ = os.Hostname()
+	//c.Data["hostname"], _ = os.Hostname()
 	c.Data["os"] = runtime.GOOS
 	c.Data["goroutineNum"] = runtime.NumGoroutine()
 	c.Data["cpuNum"] = runtime.NumCPU()
 	c.Data["arch"] = runtime.GOARCH
-	c.Data["dbVersion"] = service.DBVersion()
+	//c.Data["dbVersion"] = service.DBVersion()
 	c.Data["dataDir"] = beego.AppConfig.String("data_dir")
 	up, day, hour, min, sec := c.getUptime()
 	c.Data["uptime"] = fmt.Sprintf("%s，已运行 %d天 %d小时 %d分钟 %d秒", beego.Date(up, "Y-m-d H:i:s"), day, hour, min, sec)

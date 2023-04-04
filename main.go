@@ -4,15 +4,18 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/beego/i18n"
+	"github.com/hotel/app/service"
 	"time"
+
+	_ "github.com/hotel/routers"
 )
 
 const VERSION = "1.0"
 
 func main() {
+	service.Init()
 
 	_ = beego.AppConfig.Set("version", VERSION)
-
 	if beego.AppConfig.String("runmode") != "prod" {
 		beego.SetLevel(beego.LevelDebug)
 	} else {

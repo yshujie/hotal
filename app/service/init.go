@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"github.com/hotel/app/entity"
 	"github.com/hotel/app/entity/idgenerator"
 	"net/url"
 )
@@ -20,7 +19,7 @@ var (
 	BookOrderService *bookOrderService
 )
 
-func init() {
+func Init() {
 	dbHost := beego.AppConfig.String("db.host")
 	dbPort := beego.AppConfig.String("db.port")
 	dbUser := beego.AppConfig.String("db.user")
@@ -39,27 +38,27 @@ func init() {
 		dsn = dsn + "&loc=" + url.QueryEscape(timezone)
 	}
 
-	orm.RegisterDataBase("default", "mysql", dsn)
-	// todo：这是在做什么？
-	orm.RegisterModelWithSuffix(tableSuffix,
-		new(entity.Hotel),
-		new(entity.User),
-		new(entity.Room),
-		new(entity.Customer),
-		new(entity.BookOrder),
-	)
-
-	// todo：这是在做什么？
-	if beego.AppConfig.String("runmode") != "prod" {
-		orm.Debug = true
-	}
-
-	// todo：这是在做什么？
-	o = orm.NewOrm()
-	orm.RunCommand()
-
-	// 初始化ID生成器
-	initIDGenerator()
+	//orm.RegisterDataBase("default", "mysql", dsn)
+	//// todo：这是在做什么？
+	//orm.RegisterModelWithSuffix(tableSuffix,
+	//	new(entity.Hotel),
+	//	new(entity.User),
+	//	new(entity.Room),
+	//	new(entity.Customer),
+	//	new(entity.BookOrder),
+	//)
+	//
+	//// todo：这是在做什么？
+	//if beego.AppConfig.String("runmode") != "prod" {
+	//	orm.Debug = true
+	//}
+	//
+	//// todo：这是在做什么？
+	//o = orm.NewOrm()
+	//orm.RunCommand()
+	//
+	//// 初始化ID生成器
+	//initIDGenerator()
 
 	// 初始化服务
 	initService()
