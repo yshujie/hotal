@@ -1,0 +1,56 @@
+
+<div class="alert alert-warning alert-dismissible hide" role="alert"></div>
+
+<form class="form-horizontal ajax-form" method="post" action="{{urlfor "OrderBookController.Book"}}">
+	<input type="hidden" name="roomid" value="{{.room.Id}}">
+	<div class="form-group">
+		<label for="name" class="col-sm-2 control-label">酒店名称</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="name" name="name" value="{{.room.Hotel.Name}}" disabled>
+		</div>
+	</div>
+	<div class="form-group">
+		<label for="address" class="col-sm-2 control-label">酒店地址</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" id="address" name="address" value="{{.room.Hotel.Address}}" disabled>
+		</div>
+	</div>
+    <div class="form-group">
+        <label for="hotelname" class="col-sm-2 control-label">房间名称</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="roomname" name="roomname" value="{{.room.Name}}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="roomno" class="col-sm-2 control-label">房号</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="roomno" name="roomno" value="{{.room.No}}" disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="price" class="col-sm-2 control-label">价格</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="price" name="price" value="{{.room.Price}}"  disabled>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="daycnt" class="col-sm-2 control-label">入住天数</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="daycnt" name="daycnt">
+        </div>
+    </div>
+	
+
+	<div class="clearfix form-actions">
+		<div class="col-sm-offset-2 col-sm-10">
+			<button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+			<a href="{{urlfor "HotelController.List"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+		</div>
+	</div>
+</form>
+
+<script>
+$(function () {
+
+});
+</script>
