@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="utf-8" />
+	<title>{{.pageTitle}}</title>
+	<base href="/" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<!-- bootstrap & fontawesome -->
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="assets/font-awesome/4.2.0/css/font-awesome.min.css" />
+	<!-- text fonts -->
+	<link rel="stylesheet" href="assets/fonts/fonts.googleapis.com.css" />
+	<!-- ace styles -->
+	<link rel="stylesheet" href="assets/css/ace.min.css" />
+	<!--[if lte IE 9]>
+	<link rel="stylesheet" href="assets/css/ace-part2.min.css" />
+	<![endif]-->
+	<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+	<!--[if lte IE 9]>
+	<link rel="stylesheet" href="assets/css/ace-ie.min.css" />
+	<![endif]-->
+	<!--[if lt IE 9]>
+	<script src="assets/js/html5shiv.min.js"></script>
+	<script src="assets/js/respond.min.js"></script>
+	<![endif]-->
+	<style>
+		.login-layout {
+			background: #0ca3d2;
+		}
+		.login-layout .widget-box {
+			background: #39455740;
+		}
+		.login-box .toolbar {
+		    background: #50a3cc;
+		    border-top: 2px solid #597597;
+		    color: #fff;
+		}
+        .register-container {
+            width: 600px;
+            margin: auto;
+        }
+	</style>
+</head>
+
+<body class="login-layout">
+<div class="main-container">
+	<div class="main-content">
+		<div class="row">
+			<div class="col-sm-10 col-sm-offset-1">
+				<div class="register-container" >
+					<div class="space-30"></div>
+					<div class="position-relative">
+						<div id="login-box" class="login-box visible widget-box no-border">
+							<div class="widget-body">
+								<div class="widget-main">
+									<h4 class="header blue lighter bigger">
+										<i class="ace-icon fa fa-coffee green"></i>
+										用户注册
+									</h4>
+									<div class="space-6"></div>
+									{{if .flash.error}}
+									<div class="alert alert-danger">{{.flash.error}}</div>
+									<div class="space-6"></div>
+									{{end}}
+
+                                    <form class="form-horizontal ajax-form" method="post" action="{{urlfor "MainController.Register"}}">
+                                        <div class="form-group">
+                                            <label for="username" class="col-sm-2 control-label">登录名</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="username" name="username">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="realname" class="col-sm-2 control-label">真实姓名</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="realname" name="realname">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="sex" class="col-sm-2 control-label">性别</label>
+                                            <div class="col-sm-9">
+                                                <div class="radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="sex" value="1" checked>
+                                                        男
+                                                    </label>
+                                                </div>
+                                                <div class="radio-inline">
+                                                    <label>
+                                                        <input type="radio" name="sex" value="2">
+                                                        女
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-2 control-label">Email</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="email" name="email">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="mobile" class="col-sm-2 control-label">手机号</label>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="mobile" name="mobile">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password1" class="col-sm-2 control-label">新密码</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" class="form-control" id="password1" name="password1">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password2" class="col-sm-2 control-label">确认密码</label>
+                                            <div class="col-sm-9">
+                                                <input type="password" class="form-control" id="password2" name="password2">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="clearfix form-actions">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-info"><i class="ace-icon fa fa-check bigger-110"></i>提交</button>
+                                                <a href="{{urlfor "UserController.List"}}" class="btn btn-default"><i class="ace-icon fa fa-reply bigger-110"></i>返回</a>
+                                            </div>
+                                        </div>
+                                    </form>
+
+								</div><!-- /.widget-main -->
+
+								<div class="toolbar clearfix">
+									<div class="center">&copy; fangcunyisheng.com</div>
+								</div>
+							</div><!-- /.widget-body -->
+						</div><!-- /.login-box -->
+
+					</div><!-- /.position-relative -->
+
+				</div>
+			</div><!-- /.col -->
+		</div><!-- /.row -->
+	</div><!-- /.main-content -->
+</div><!-- /.main-container -->
+
+<script src="assets/js/jquery.2.1.1.min.js"></script>
+<script type="text/javascript">
+	if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+	
+	$(":input[name='username']").focus();
+</script>
+</body>
+</html>
